@@ -38,8 +38,10 @@ const loadStore = () => {
 	
 	//destructuring de los que obtengo de localStorage
 	/*
-	Si no existe 'todos', usa array vacío
-  	Si no existe 'filter', usa Filters.All
+	Extrae las propiedades todos y filter del objeto.
+	Valores por defecto (por si alguna propiedad no existe):
+	Si todos no existe en el objeto, se asigna [] (array vacío).
+	Si filter no existe, se asigna Filters.All (el filtro por defecto).
 	*/
 	const { todos = [], filter = Filters.All } = JSON.parse( localStorage.getItem('state') );
 

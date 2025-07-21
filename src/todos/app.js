@@ -1,14 +1,15 @@
 //importar template HTML
 import templateHtml from './app.html?raw';
 import todoStore, { Filters } from '../store/todo.store';
-import { renderTodos } from './use-cases';
+import { renderTodos, renderPending } from './use-cases';
 
 //objeto de ids
 const elementIDs = {
 	TodoListHtml: '.todo-list',
 	NewtodoInput: '#new-todo-input',
 	ClearComplete: '.clear-completed',
-	TodoFilters: '.filters'
+	TodoFilters: '.filters',
+	PendingCountLabel: '#pending-count'
 };
 
 /**
@@ -26,6 +27,17 @@ export const App = ( elementId ) => {
 		//id desde un objeto - esta enviando .todo-list
 		renderTodos( elementIDs.TodoListHtml, todos );
 
+		updatePendingCount();
+
+	};
+
+	//----------------------------------------
+
+	//saber el numero de pendientes
+	const updatePendingCount = () => {
+
+		renderPending(elementIDs.PendingCountLabel);
+	
 	};
 
 	//----------------------------------------
@@ -113,7 +125,7 @@ export const App = ( elementId ) => {
 		//clear complete
 		clearTodoButton.addEventListener('click', (event) => {
 			
-			//elemento
+			//elemento Es diferente de event.target, que apunta al elemento que originó el evento (útil cuando hay propagación de eventos).
 			const elementHtml = event.currentTarget;
 
 			//si no existe
@@ -132,16 +144,19 @@ export const App = ( elementId ) => {
 			// Prevenir el comportamiento por defecto del enlace (opcional)
   			event.preventDefault();
 
-			// 1. Verificar que el click fue en un enlace de filtro
+			// 1. Verificar que el click fue en un enlace con la clase css .filtro
 			const clickedFilter = event.target.closest('a.filtro');
 
 			//verifica
 			if (!clickedFilter) return;
 
 			// 2. Quitar la clase 'selected' de TODOS los filtros
-			document.querySelectorAll('.filters a.filtro').forEach(selectedFilter => {
-				selectedFilter.classList.remove('selected');
-			});
+			// document.querySelectorAll('.filters a.filtro').forEach(selectedFilter => {
+			// 	selectedFilter.classList.remove('selected');
+			// });
+
+			// Remueve 'selected' del anterior (si existe)
+    		document.querySelector('.filters a.filtro.selected')?.classList.remove('selected');
 
 			// 3. Agregar la clase solo al filtro clickeado
   			clickedFilter.classList.add('selected');
