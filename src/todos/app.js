@@ -175,6 +175,5 @@ export const App = ( elementId ) => {
 			displayTodos();	
 		});
 
-	})();	
-
+	})();
 };
