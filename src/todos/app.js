@@ -21,23 +21,19 @@ export const App = ( elementId ) => {
 
 	//mostrar todos los TODOS
 	const displayTodos = () => {
-
 		const todos = todoStore.getTodos( todoStore.getCurrentFilter() );
 
 		//id desde un objeto - esta enviando .todo-list
 		renderTodos( elementIDs.TodoListHtml, todos );
 
 		updatePendingCount();
-
 	};
 
 	//----------------------------------------
 
 	//saber el numero de pendientes
 	const updatePendingCount = () => {
-
-		renderPending(elementIDs.PendingCountLabel);
-	
+		renderPending(elementIDs.PendingCountLabel);	
 	};
 
 	//----------------------------------------
@@ -81,8 +77,7 @@ export const App = ( elementId ) => {
 		});
 
 		//click li
-		todoListLi.addEventListener('click', (event) => {
-			
+		todoListLi.addEventListener('click', (event) => {			
 			// Verificar si el clic fue en un <li> o en un elemento dentro de él
     		const elementLi = event.target.closest('li');
 			
@@ -97,12 +92,10 @@ export const App = ( elementId ) => {
 
 				displayTodos();
 			}
-
 		});
 
 		//click all boton destroyer
 		todoListLi.addEventListener('click', (event) => {
-
 			// Verificar si el clic fue en un <li> o en un elemento dentro de él
     		const elementLi = event.target.closest('li');
 
@@ -119,12 +112,10 @@ export const App = ( elementId ) => {
 			todoStore.deleteTodo(elementLi.dataset.id);
 
 			displayTodos();
-
 		});
 
 		//clear complete
-		clearTodoButton.addEventListener('click', (event) => {
-			
+		clearTodoButton.addEventListener('click', (event) => {			
 			//elemento Es diferente de event.target, que apunta al elemento que originó el evento (útil cuando hay propagación de eventos).
 			const elementHtml = event.currentTarget;
 
@@ -135,12 +126,10 @@ export const App = ( elementId ) => {
 			todoStore.deleteCompleted();
 
 			displayTodos();
-
 		});
 
 		//al hacer click en alguna opcion de filtrados disponibles
 		todoFilterLi.addEventListener('click', (event) => {
-
 			// Prevenir el comportamiento por defecto del enlace (opcional)
   			event.preventDefault();
 
@@ -183,8 +172,7 @@ export const App = ( elementId ) => {
 				break;	
 			}
 
-			displayTodos();
-			
+			displayTodos();	
 		});
 
 	})();	
